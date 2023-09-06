@@ -15,7 +15,27 @@ const pool = new Pool({
   password: "admin",
   port: 5432,
 });
+// Function to create a users table
+const createUsersTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      username VARCHAR(50) UNIQUE NOT NULL,
+      email VARCHAR(50) UNIQUE NOT NULL
+    );
+  `;
 
+  await pool.query(query, (err, res) => {
+    if (err) {
+      console.error("An error occurred while creating the table:", err);
+    } else {
+      console.log("Table created successfully!");
+    }
+  });
+};
+
+// Execute the table creation function
+createUsersTable();
 // Create
 app.post("/users", async (req, res) => {
   const { username, email } = req.body;
@@ -51,6 +71,5 @@ app.delete("/users/:id", async (req, res) => {
 });
 
 app.listen(port, () => {
-  await pool.query("DELETE FROM users WHERE id = $1", [id]);
   console.log(`Server is running on http://localhost:${port}`);
 });
