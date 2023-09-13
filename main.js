@@ -13,7 +13,7 @@ const pool = new Pool({
   host: "localhost",
   database: "postgres",
   password: "admin",
-  port: 5432,
+  port: 5433,
 });
 // Function to create a users table
 const createUsersTable = async () => {
@@ -69,6 +69,16 @@ app.delete("/users/:id", async (req, res) => {
   await pool.query("DELETE FROM users WHERE id = $1", [id]);
   res.json({ message: "User deleted" });
 });
+
+
+//  Ippo testing
+
+// Add a new route for /test
+app.get("/test", (_, res) => {
+  res.status(200).json({ message: "Hello, World!" });
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
