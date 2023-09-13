@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        h3 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        p {
+            margin-top: 5px;
+        }
+        pre {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Documentation</h1>
+    
+    <h2>Users</h2>
+    
+    <h3>GET /users</h3>
+    <p>Retrieve a list of users.</p>
+    <p>Example Request:</p>
+    <pre>
+GET /users
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+[
+    {
+        "nro_cliente": 1,
+        "nombre": "John",
+        "apellido": "Doe",
+        "direccion": "123 Main St",
+        "activo": true
+    },
+    {
+        "nro_cliente": 2,
+        "nombre": "Jane",
+        "apellido": "Smith",
+        "direccion": "456 Elm St",
+        "activo": true
+    }
+]
+    </pre>
+    
+    <h3>POST /users</h3>
+    <p>Create a new user.</p>
+    <p>Request Body (JSON):</p>
+    <pre>
+{
+    "nombre": "John",
+    "apellido": "Doe",
+    "direccion": "123 Main St",
+    "activo": true
+}
+    </pre>
+    <p>Example Request:</p>
+    <pre>
+POST /users
+Content-Type: application/json
+
+{
+    "nombre": "John",
+    "apellido": "Doe",
+    "direccion": "123 Main St",
+    "activo": true
+}
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+{
+    "nro_cliente": 3,
+    "nombre": "John",
+    "apellido": "Doe",
+    "direccion": "123 Main St",
+    "activo": true
+}
+    </pre>
+    
+    <h3>PUT /users/:id</h3>
+    <p>Update an existing user by ID.</p>
+    <p>Request Body (JSON):</p>
+    <pre>
+{
+    "nombre": "Updated Name",
+    "apellido": "Updated LastName",
+    "direccion": "Updated Address",
+    "activo": false
+}
+    </pre>
+    <p>Example Request:</p>
+    <pre>
+PUT /users/3
+Content-Type: application/json
+
+{
+    "nombre": "Updated Name",
+    "apellido": "Updated LastName",
+    "direccion": "Updated Address",
+    "activo": false
+}
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+{
+    "nro_cliente": 3,
+    "nombre": "Updated Name",
+    "apellido": "Updated LastName",
+    "direccion": "Updated Address",
+    "activo": false
+}
+    </pre>
+    
+    <h3>DELETE /users/:id</h3>
+    <p>Delete a user by ID.</p>
+    <p>Example Request:</p>
+    <pre>
+DELETE /users/3
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+{
+    "message": "User deleted"
+}
+    </pre>
+    
+    <h2>Products</h2>
+    
+    <h3>GET /products</h3>
+    <p>Retrieve a list of products.</p>
+    <p>Example Request:</p>
+    <pre>
+GET /products
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+[
+    {
+        "nro_producto": 1,
+        "marca": "Brand A",
+        "nombre": "Product 1",
+        "descripcion": "Description 1",
+        "precio": 99.99,
+        "stock": 100
+    },
+    {
+        "nro_producto": 2,
+        "marca": "Brand B",
+        "nombre": "Product 2",
+        "descripcion": "Description 2",
+        "precio": 79.99,
+        "stock": 150
+    }
+]
+    </pre>
+    
+    <h3>POST /products</h3>
+    <p>Create a new product.</p>
+    <p>Request Body (JSON):</p>
+    <pre>
+{
+    "marca": "Brand A",
+    "nombre": "Product 1",
+    "descripcion": "Description 1",
+    "precio": 99.99,
+    "stock": 100
+}
+    </pre>
+    <p>Example Request:</p>
+    <pre>
+POST /products
+Content-Type: application/json
+
+{
+    "marca": "Brand A",
+    "nombre": "Product 1",
+    "descripcion": "Description 1",
+    "precio": 99.99,
+    "stock": 100
+}
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+{
+    "nro_producto": 3,
+    "marca": "Brand A",
+    "nombre": "Product 1",
+    "descripcion": "Description 1",
+    "precio": 99.99,
+    "stock": 100
+}
+    </pre>
+    
+    <h3>PUT /products/:id</h3>
+    <p>Update an existing product by ID.</p>
+    <p>Request Body (JSON):</p>
+    <pre>
+{
+    "marca": "Updated Brand",
+    "nombre": "Updated Product Name",
+    "descripcion": "Updated Product Description",
+    "precio": 79.99,
+    "stock": 150
+}
+    </pre>
+    <p>Example Request:</p>
+    <pre>
+PUT /products/3
+Content-Type: application/json
+
+{
+    "marca": "Updated Brand",
+    "nombre": "Updated Product Name",
+    "descripcion": "Updated Product Description",
+    "precio": 79.99,
+    "stock": 150
+}
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+{
+    "nro_producto": 3,
+    "marca": "Updated Brand",
+    "nombre": "Updated Product Name",
+    "descripcion": "Updated Product Description",
+    "precio": 79.99,
+    "stock": 150
+}
+    </pre>
+    
+    <h3>DELETE /products/:id</h3>
+    <p>Delete a product by ID.</p>
+    <p>Example Request:</p>
+    <pre>
+DELETE /products/3
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+{
+    "message": "Product deleted"
+}
+    </pre>
+    
+    <h2>Test</h2>
+    
+    <h3>GET /test</h3>
+    <p>Returns a simple "Hello, World!" message.</p>
+    <p>Example Request:</p>
+    <pre>
+GET /test
+    </pre>
+    <p>Example Response:</p>
+    <pre>
+{
+    "message": "Hello, World!"
+}
+    </pre>
+</body>
+</html>
