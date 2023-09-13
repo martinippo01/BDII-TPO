@@ -19,15 +19,10 @@ const pool = new Pool({
 });
 // Function to create a users table
 const createUsersTable = async () => {
-<<<<<<< HEAD
- 
-  await pool.query(query, (err, res) => {
-=======
   
   const schemaSql = fs.readFileSync('schema.sql', 'utf8');
 
   await pool.query(schemaSql, (err, res) => {
->>>>>>> 5709742af00cd9fb46fee610b12376929561fa56
     if (err) {
       console.error("An error occurred while creating the table:", err);
     } else {
