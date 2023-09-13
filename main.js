@@ -17,14 +17,7 @@ const pool = new Pool({
 });
 // Function to create a users table
 const createUsersTable = async () => {
-  const query = `
-    CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
-      username VARCHAR(50) UNIQUE NOT NULL,
-      email VARCHAR(50) UNIQUE NOT NULL
-    );
-  `;
-
+ 
   await pool.query(query, (err, res) => {
     if (err) {
       console.error("An error occurred while creating the table:", err);
@@ -36,29 +29,30 @@ const createUsersTable = async () => {
 
 // Execute the table creation function
 createUsersTable();
+
 // Create
 app.post("/users", async (req, res) => {
-  const { username, email } = req.body;
+  const { nombre,apellido,direccion,activo} = req.body;
   const result = await pool.query(
-    "INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *",
-    [username, email]
+    "INSERT INTO e01_cliente (nombre,apellido,direccion,activo) values ($1, $2,$3,$4) RETURNING *",
+    [nombre,apellido,direccion,activo]
   );
   res.json(result.rows[0]);
 });
 
 // Read
 app.get("/users", async (_, res) => {
-  const result = await pool.query("SELECT * FROM users");
+  const result = await pool.query("SELECT * FROM e01_cliente");
   res.json(result.rows);
 });
 
 // Update
 app.put("/users/:id", async (req, res) => {
   const { id } = req.params;
-  const { username, email } = req.body;
+  const { nombre,apellido,direccion,activo} = req.body;
   const result = await pool.query(
-    "UPDATE users SET username = $1, email = $2 WHERE id = $3 RETURNING *",
-    [username, email, id]
+    "UPDATE e01_cliente SET nombre = $1, apellido = $2, direccion = $4, activo = $5 WHERE nro_cliente = $3 RETURNING *",
+    [nombre, apellido,direccion,activo, id]
   );
   res.json(result.rows[0]);
 });
@@ -66,8 +60,37 @@ app.put("/users/:id", async (req, res) => {
 // Delete
 app.delete("/users/:id", async (req, res) => {
   const { id } = req.params;
-  await pool.query("DELETE FROM users WHERE id = $1", [id]);
+  await pool.query("DELETE FROM e01_cliente WHERE nro_cliente = $1", [id]);
   res.json({ message: "User deleted" });
+});
+
+app.get("/products", async (_, res) => {
+  const result = await pool.query("SELECT * FROM e01_producto");
+  res.json(result.rows);
+});
+
+app.post("/products", async (req, res) => {
+  const { marca,nombre,descripcion,precio,stock} = req.body;
+  const result = await pool.query(
+    "INSERT INTO e01_producto (marca,nombre,descripcion,precio,stock) values ($1, $2,$3,$4,$5) RETURNING *",
+    [marca,nombre,descripcion,precio,stock]
+  );
+  res.json(result.rows[0]);
+});
+
+app.put("/products/:id", async (req, res) => {
+  const { id } = req.params;
+  const { marca,nombre,descripcion,precio,stock} = req.body;
+  const result = await pool.query(
+    "UPDATE e01_producto SET marca = $1, nombre = $2, descripcion = $3, precio = $4,stock = $5 WHERE nro_producto = $6 RETURNING *",
+    [marca, nombre,descripcion,precio,stock, id]
+  );
+  res.json(result.rows[0]);
+});
+app.delete("/products/:id", async (req, res) => {
+  const { id } = req.params;
+  await pool.query("DELETE FROM e01_producto WHERE nro_producto = $1", [id]);
+  res.json({ message: "Product deleted" });
 });
 
 
