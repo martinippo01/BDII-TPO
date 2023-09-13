@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { Pool } = require("pg");
+const fs = require('fs');
+
 
 const app = express();
 const port = 3000;
@@ -13,12 +15,19 @@ const pool = new Pool({
   host: "localhost",
   database: "postgres",
   password: "admin",
-  port: 5432,
+  port: 5433,
 });
 // Function to create a users table
 const createUsersTable = async () => {
+<<<<<<< HEAD
  
   await pool.query(query, (err, res) => {
+=======
+  
+  const schemaSql = fs.readFileSync('schema.sql', 'utf8');
+
+  await pool.query(schemaSql, (err, res) => {
+>>>>>>> 5709742af00cd9fb46fee610b12376929561fa56
     if (err) {
       console.error("An error occurred while creating the table:", err);
     } else {
