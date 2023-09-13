@@ -1,4 +1,4 @@
-\timing
+
 --create database mri2022bd2;
 --use mri2022bd2;
 
@@ -581,7 +581,7 @@ INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock)
 INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock) VALUES (32,'Montes Nascetur Incorporated','cosmetics','purus. Nullam scelerisque','926.60',203);
 INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock) VALUES (33,'Turpis Nulla Corp.',' drugstore ','pede, nonummy ut,','472.49',496);
 INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock) VALUES (34,'Eu Eleifend Nec Associates','canned goods','orci sem eget','715.37',676);
-INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock) VALUES (35,'Euismod Incorporated',E'chemist\'s ','enim. Nunc ut','762.66',139);
+INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock) VALUES (35,'Euismod Incorporated','Echemists','enim. Nunc ut','762.66',139);
 INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock) VALUES (36,'Congue A Aliquet Corp.','sales assistant','diam nunc, ullamcorper','758.82',778);
 INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock) VALUES (37,'Sed Dui Fusce LLC','coin','eleifend nec, malesuada','282.07',954);
 INSERT INTO E01_PRODUCTO (codigo_producto,marca,nombre,descripcion,precio,stock) VALUES (38,'Arcu Incorporated','bag','justo eu arcu.','53.83',681);
