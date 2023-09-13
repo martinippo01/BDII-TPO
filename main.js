@@ -70,6 +70,16 @@ app.delete("/users/:id", async (req, res) => {
   res.json({ message: "User deleted" });
 });
 
+
+//  Ippo testing
+
+// Add a new route for /test
+app.get("/test", (_, res) => {
+  res.status(200).json({ message: "Hello, World!" });
+});
+
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
