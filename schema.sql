@@ -1,7 +1,8 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --
 -- TABLE: E01_CLIENTE
 --
-CREATE TABLE E01_CLIENTE(
+CREATE TABLE IF NOT EXISTS E01_CLIENTE(
     nro_cliente    INTEGER        NOT NULL,
     nombre         VARCHAR(45)    NOT NULL,
     apellido       VARCHAR(45)    NOT NULL,
@@ -13,7 +14,7 @@ CREATE TABLE E01_CLIENTE(
 --
 -- TABLE: E01_DETALLE_FACTURA
 --
-CREATE TABLE E01_DETALLE_FACTURA(
+CREATE TABLE IF NOT EXISTS E01_DETALLE_FACTURA(
     nro_factura        INTEGER    NOT NULL,
     codigo_producto    INTEGER    NOT NULL,
     nro_item           INTEGER    NOT NULL,
@@ -24,7 +25,7 @@ CREATE TABLE E01_DETALLE_FACTURA(
 --
 -- TABLE: E01_FACTURA
 --
-CREATE TABLE E01_FACTURA(
+CREATE TABLE IF NOT EXISTS E01_FACTURA(
     nro_factura      INTEGER    NOT NULL,
     fecha            DATE       NOT NULL,
     total_sin_iva    DOUBLE PRECISION     NOT NULL,
@@ -37,7 +38,7 @@ CREATE TABLE E01_FACTURA(
 --
 -- TABLE: E01_PRODUCTO
 --
-CREATE TABLE E01_PRODUCTO(
+CREATE TABLE IF NOT EXISTS E01_PRODUCTO(
     codigo_producto    INTEGER        NOT NULL,
     marca              VARCHAR(45)    NOT NULL,
     nombre             VARCHAR(45)    NOT NULL,
@@ -50,7 +51,7 @@ CREATE TABLE E01_PRODUCTO(
 --
 -- TABLE: E01_TELEFONO
 --
-CREATE TABLE E01_TELEFONO(
+CREATE TABLE IF NOT EXISTS E01_TELEFONO(
     codigo_area     INTEGER    NOT NULL,
     nro_telefono    INTEGER    NOT NULL,
     tipo            CHAR(1)    NOT NULL,
@@ -61,28 +62,65 @@ CREATE TABLE E01_TELEFONO(
 --
 -- TABLE: E01_DETALLE_FACTURA
 --
-ALTER TABLE E01_DETALLE_FACTURA ADD CONSTRAINT FK_E01_DETALLE_FACTURA_PRODUCTO
-    FOREIGN KEY (codigo_producto)
-    REFERENCES E01_PRODUCTO(codigo_producto)
-;
-ALTER TABLE E01_DETALLE_FACTURA ADD CONSTRAINT FK_E01_DETALLE_FACTURA_FACTURA
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM   information_schema.table_constraints
+    WHERE  constraint_name = 'fk_e01_detalle_factura_producto'
+  ) THEN
+    ALTER TABLE E01_DETALLE_FACTURA ADD CONSTRAINT FK_E01_DETALLE_FACTURA_PRODUCTO
+        FOREIGN KEY (codigo_producto)
+        REFERENCES E01_PRODUCTO(codigo_producto)
+    ;
+  END IF;
+END $$;
+
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM   information_schema.table_constraints
+    WHERE  constraint_name = 'fk_e01_detalle_factura_factura'
+  ) THEN
+    ALTER TABLE E01_DETALLE_FACTURA ADD CONSTRAINT FK_E01_DETALLE_FACTURA_FACTURA
     FOREIGN KEY (nro_factura)
     REFERENCES E01_FACTURA(nro_factura)
-;
---
--- TABLE: E01_FACTURA
---
-ALTER TABLE E01_FACTURA ADD CONSTRAINT FK_E01_FACTURA_CLIENTE
+    ;
+  END IF;
+END $$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM   information_schema.table_constraints
+    WHERE  constraint_name = 'fk_e01_factura_cliente'
+  ) THEN
+    ALTER TABLE E01_FACTURA ADD CONSTRAINT FK_E01_FACTURA_CLIENTE
     FOREIGN KEY (nro_cliente)
     REFERENCES E01_CLIENTE(nro_cliente)
-;
---
--- TABLE: E01_TELEFONO
---
-ALTER TABLE E01_TELEFONO ADD CONSTRAINT FK_E01_TELEFONO_CLIENTE
+    ;
+  END IF;
+END $$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM   information_schema.table_constraints
+    WHERE  constraint_name = 'fk_e01_telefono_cliente'
+  ) THEN
+    ALTER TABLE E01_TELEFONO ADD CONSTRAINT FK_E01_TELEFONO_CLIENTE
     FOREIGN KEY (nro_cliente)
     REFERENCES E01_CLIENTE(nro_cliente)
-;
+    ;
+  END IF;
+END $$;
+
+
+
 CREATE OR REPLACE PROCEDURE calcular_precios() AS $$
 DECLARE
     v_nro_factura INTEGER DEFAULT 0;
