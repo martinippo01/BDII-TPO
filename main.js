@@ -13,7 +13,7 @@ const pool = new Pool({
   host: "localhost",
   database: "postgres",
   password: "admin",
-  port: 5433,
+  port: 5432,
 });
 // Function to create a users table
 const createUsersTable = async () => {
