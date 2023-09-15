@@ -20,6 +20,7 @@ const pool = new Pool({
   password: "admin",
   port: 5433,
 });
+
 // Function to create a users table
 const createUsersTable = async () => {
   
@@ -37,39 +38,90 @@ const createUsersTable = async () => {
 // Execute the table creation function
 createUsersTable();
 
+//---------------------------------------------------
+//  CLIENTES
+//---------------------------------------------------
+
 // Create
-app.post("/users", async (req, res) => {
+app.post("/clients", async (req, res) => {
   const { nombre,apellido,direccion,activo} = req.body;
-  const result = await pool.query(
-    "INSERT INTO e01_cliente (nombre,apellido,direccion,activo) values ($1, $2,$3,$4) RETURNING *",
-    [nombre,apellido,direccion,activo]
-  );
-  res.json(result.rows[0]);
+  try{
+    const result = await pool.query(
+      "INSERT INTO e01_cliente (nombre,apellido,direccion,activo) values ($1, $2,$3,$4) RETURNING *",
+      [nombre,apellido,direccion,activo]
+    );
+    res.json(result.rows[0]);
+  }catch(error){
+    
+  }
 });
 
 // Read
-app.get("/users", async (_, res) => {
-  const result = await pool.query("SELECT * FROM e01_cliente");
-  res.json(result.rows);
+app.get("/clients", async (_, res) => {
+  try{
+    const result = await pool.query("SELECT * FROM e01_cliente");
+    res.status(200).json(result.rows);
+  }catch(error){
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
+// Read
+app.get("/clients/:id", async (_, res) => {
+  try{
+    const { id } = req.params;
+    const result = await pool.query("SELECT * FROM e01_cliente WHERE nro_cliente = 1");
+    if (result.rowCount === 0) {
+      res.status(404).json({ error: "User not found" }); // 404 Not Found
+    } else {
+      res.status(200).json(result.rows[0]);
+    }
+  }catch(error){
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
 });
 
 // Update
-app.put("/users/:id", async (req, res) => {
+app.put("/clients/:id", async (req, res) => {
   const { id } = req.params;
-  const { nombre,apellido,direccion,activo} = req.body;
-  const result = await pool.query(
-    "UPDATE e01_cliente SET nombre = $1, apellido = $2, direccion = $4, activo = $5 WHERE nro_cliente = $3 RETURNING *",
-    [nombre, apellido,direccion,activo, id]
-  );
-  res.json(result.rows[0]);
+  const { nombre, apellido, direccion, activo } = req.body;
+  try {
+    const result = await pool.query(
+      "UPDATE e01_cliente SET nombre = $1, apellido = $2, direccion = $4, activo = $5 WHERE nro_cliente = $3 RETURNING *",
+//      [nombre, apellido, direccion, activo, id]
+        [nombre, apellido, id, direccion, activo]
+    );
+    if (result.rowCount === 0) {
+      res.status(404).json({ error: "User not found" }); // 404 Not Found
+    } else {
+      res.status(200).json(result.rows[0]);
+    }
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Failed to update user" }); // 500 Internal Server Error
+  }
 });
 
 // Delete
-app.delete("/users/:id", async (req, res) => {
+app.delete("/clients/:id", async (req, res) => {
   const { id } = req.params;
-  await pool.query("DELETE FROM e01_cliente WHERE nro_cliente = $1", [id]);
-  res.json({ message: "User deleted" });
+  try {
+    const result = await pool.query("DELETE FROM e01_cliente WHERE nro_cliente = $1", [id]);
+    if (result.rowCount === 0) {
+      res.status(404).json({ error: "User not found" }); // 404 Not Found
+    } else {
+      res.json({ message: "User deleted" });
+    }
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Failed to delete user" }); // 500 Internal Server Error
+  }
 });
+
+
+//---------------------------------------------------
+//  PRODUCTOS
+//---------------------------------------------------
 
 app.get("/products", async (_, res) => {
   const result = await pool.query("SELECT * FROM e01_producto");
@@ -100,15 +152,9 @@ app.delete("/products/:id", async (req, res) => {
   res.json({ message: "Product deleted" });
 });
 
-
-//  Ippo testing
-
-// Add a new route for /test
-app.get("/test", (_, res) => {
-  res.status(200).json({ message: "Hello, World!" });
-});
-
-
+//---------------------------------------------------
+//  UP
+//---------------------------------------------------
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
