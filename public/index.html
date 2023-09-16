@@ -31,13 +31,13 @@
 <body>
     <h1>API Documentation</h1>
     
-    <h2>Users</h2>
+    <h2>Clients</h2>
     
-    <h3>GET /users</h3>
-    <p>Retrieve a list of users.</p>
+    <h3>GET /clients</h3>
+    <p>Retrieve a list of clients.</p>
     <p>Example Request:</p>
     <pre>
-GET /users
+GET /clients
     </pre>
     <p>Example Response:</p>
     <pre>
@@ -59,7 +59,7 @@ GET /users
 ]
     </pre>
     
-    <h3>POST /users</h3>
+    <h3>POST /clients</h3>
     <p>Create a new user.</p>
     <p>Request Body (JSON):</p>
     <pre>
@@ -72,7 +72,7 @@ GET /users
     </pre>
     <p>Example Request:</p>
     <pre>
-POST /users
+POST /clients
 Content-Type: application/json
 
 {
@@ -93,7 +93,7 @@ Content-Type: application/json
 }
     </pre>
     
-    <h3>PUT /users/:id</h3>
+    <h3>PUT /clients/:id</h3>
     <p>Update an existing user by ID.</p>
     <p>Request Body (JSON):</p>
     <pre>
@@ -106,7 +106,7 @@ Content-Type: application/json
     </pre>
     <p>Example Request:</p>
     <pre>
-PUT /users/3
+PUT /clients/3
 Content-Type: application/json
 
 {
@@ -127,11 +127,11 @@ Content-Type: application/json
 }
     </pre>
     
-    <h3>DELETE /users/:id</h3>
+    <h3>DELETE /clients/:id</h3>
     <p>Delete a user by ID.</p>
     <p>Example Request:</p>
     <pre>
-DELETE /users/3
+DELETE /clients/3
     </pre>
     <p>Example Response:</p>
     <pre>
@@ -207,6 +207,31 @@ Content-Type: application/json
 }
     </pre>
     
+    <h3>GET /products/:id</h3>
+    <p>Retrieve product details by ID.</p>
+    <p>Example Request:</p>
+    <pre>
+    GET /products/1
+    </pre>
+    <p>Example Response (Product Found):</p>
+    <pre>
+    {
+        "nro_producto": 1,
+        "marca": "Brand A",
+        "nombre": "Product 1",
+        "descripcion": "Description 1",
+        "precio": 99.99,
+        "stock": 100
+    }
+    </pre>
+    <p>Example Response (Product Not Found):</p>
+    <pre>
+    {
+        "error": "Product not found"
+    }
+    </pre>
+
+
     <h3>PUT /products/:id</h3>
     <p>Update an existing product by ID.</p>
     <p>Request Body (JSON):</p>
@@ -257,19 +282,6 @@ DELETE /products/3
 }
     </pre>
     
-    <h2>Test</h2>
     
-    <h3>GET /test</h3>
-    <p>Returns a simple "Hello, World!" message.</p>
-    <p>Example Request:</p>
-    <pre>
-GET /test
-    </pre>
-    <p>Example Response:</p>
-    <pre>
-{
-    "message": "Hello, World!"
-}
-    </pre>
 </body>
 </html>

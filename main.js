@@ -56,6 +56,7 @@ app.post("/clients", async (req, res) => {
     );
     res.status(200).json(result.rows[0]);
   }catch(error){
+    console.error(error);
     res.status(500).json({ error: "Failed to create client" });
   }
 });
@@ -66,6 +67,7 @@ app.get("/clients", async (req, res) => {
     const result = await pool.query("SELECT * FROM e01_cliente");
     res.status(200).json(result.rows);
   }catch(error){
+    console.error(error);
     res.status(500).json({ error: "Failed to fetch clients" });
   }
 });
@@ -81,6 +83,7 @@ app.get("/clients/:id", async (req, res) => {
       res.status(200).json(result.rows[0]);
     }
   }catch(error){
+    console.error(error);
     res.status(500).json({ error: "Failed to fetch clients" });
   }
 });
@@ -132,7 +135,23 @@ app.get("/products", async (req, res) => {
     const result = await pool.query("SELECT * FROM e01_producto");
     res.status(200).json(result.rows);
   }catch(error){
+    console.error(error);
     res.status(500).json({ error: "Failed to retrieve products" });
+  }
+});
+
+app.get("/products/:id", async (req, res) => {
+  try{
+    const { id } = req.params;
+    const result = await pool.query("SELECT * FROM e01_producto WHERE codigo_producto = $1", [id]);
+    if (result.rowCount === 0) {
+      res.status(404).json({ error: "Product not found" }); // 404 Not Found
+    } else {
+      res.status(200).json(result.rows[0]);
+    }
+  }catch(error){
+    console.error(error);
+    res.status(500).json({ error: "Failed to retrieve product" });
   }
 });
 
@@ -145,6 +164,7 @@ app.post("/products", async (req, res) => {
     );
     res.status(200).json(result.rows[0]);
   }catch(error){
+    console.error(error);
     res.status(500).json({ error: "Failed to save product" });
   }
 });
@@ -154,7 +174,7 @@ app.put("/products/:id", async (req, res) => {
     const { id } = req.params;
     const { marca,nombre,descripcion,precio,stock} = req.body;
     const result = await pool.query(
-      "UPDATE e01_producto SET marca = $1, nombre = $2, descripcion = $3, precio = $4,stock = $5 WHERE nro_producto = $6 RETURNING *",
+      "UPDATE e01_producto SET marca = $1, nombre = $2, descripcion = $3, precio = $4,stock = $5 WHERE codigo_producto = $6 RETURNING *",
       [marca, nombre,descripcion,precio,stock, id]
     );
     if (result.rowCount === 0) {
@@ -163,6 +183,7 @@ app.put("/products/:id", async (req, res) => {
       res.status(200).json(result.rows[0]);
     }
   }catch(error){
+    console.error(error);
     res.status(500).json({ error: "Failed to modify product" });
   }
 });
@@ -170,13 +191,14 @@ app.put("/products/:id", async (req, res) => {
 app.delete("/products/:id", async (req, res) => {
   try{
     const { id } = req.params;
-    await pool.query("DELETE FROM e01_producto WHERE nro_producto = $1", [id]);
+    await pool.query("DELETE FROM e01_producto WHERE codigo_producto = $1", [id]);
     if (result.rowCount === 0) {
       res.status(404).json({ error: "Product not found" }); // 404 Not Found
     } else {
       res.json({ message: "Product deleted" });
     }
   }catch(error){
+    console.error(error);
     res.status(500).json({ error: "Failed to delete product" });
   }
 });
