@@ -47,37 +47,37 @@ app.post("/clients", async (req, res) => {
   const { nombre,apellido,direccion,activo} = req.body;
   try{
     const result = await pool.query(
-      "INSERT INTO e01_cliente (nombre,apellido,direccion,activo) values ($1, $2,$3,$4) RETURNING *",
+      "INSERT INTO e01_cliente (nombre,apellido,direccion,activo) values ($1,$2,$3,$4) RETURNING *",
       [nombre,apellido,direccion,activo]
     );
     res.json(result.rows[0]);
   }catch(error){
-    
+    res.status(500).json({ error: "Failed to create client" });
   }
 });
 
 // Read
-app.get("/clients", async (_, res) => {
+app.get("/clients", async (req, res) => {
   try{
     const result = await pool.query("SELECT * FROM e01_cliente");
     res.status(200).json(result.rows);
   }catch(error){
-    res.status(500).json({ error: "Failed to fetch users" });
+    res.status(500).json({ error: "Failed to fetch clients" });
   }
 });
 
 // Read
-app.get("/clients/:id", async (_, res) => {
+app.get("/clients/:id", async (req, res) => {
+  const id = req.params.id;
   try{
-    const { id } = req.params;
-    const result = await pool.query("SELECT * FROM e01_cliente WHERE nro_cliente = 1");
+    const result = await pool.query("SELECT * FROM e01_cliente WHERE nro_cliente = $1", [id]);
     if (result.rowCount === 0) {
       res.status(404).json({ error: "User not found" }); // 404 Not Found
     } else {
       res.status(200).json(result.rows[0]);
     }
   }catch(error){
-    res.status(500).json({ error: "Failed to fetch users" });
+    res.status(500).json({ error: "Failed to fetch clients" });
   }
 });
 
@@ -123,7 +123,7 @@ app.delete("/clients/:id", async (req, res) => {
 //  PRODUCTOS
 //---------------------------------------------------
 
-app.get("/products", async (_, res) => {
+app.get("/products", async (req, res) => {
   const result = await pool.query("SELECT * FROM e01_producto");
   res.json(result.rows);
 });
