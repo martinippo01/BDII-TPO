@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS E01_FACTURA(
 -- TABLE: E01_PRODUCTO
 --
 CREATE TABLE IF NOT EXISTS E01_PRODUCTO(
-    codigo_producto    INTEGER        NOT NULL,
+    codigo_producto    SERIAL         NOT NULL,
     marca              VARCHAR(45)    NOT NULL,
     nombre             VARCHAR(45)    NOT NULL,
     descripcion        VARCHAR(45)    NOT NULL,

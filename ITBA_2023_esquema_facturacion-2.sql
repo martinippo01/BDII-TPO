@@ -28,7 +28,7 @@
 
 CREATE TABLE E01_CLIENTE(
 
-    nro_cliente    INTEGER        NOT NULL,
+    nro_cliente    SERIAL         NOT NULL,
 
     nombre         VARCHAR(45)    NOT NULL,
 

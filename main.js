@@ -128,33 +128,59 @@ app.delete("/clients/:id", async (req, res) => {
 //---------------------------------------------------
 
 app.get("/products", async (req, res) => {
-  const result = await pool.query("SELECT * FROM e01_producto");
-  res.json(result.rows);
+  try{
+    const result = await pool.query("SELECT * FROM e01_producto");
+    res.status(200).json(result.rows);
+  }catch(error){
+    res.status(500).json({ error: "Failed to retrieve products" });
+  }
 });
 
 app.post("/products", async (req, res) => {
-  const { marca,nombre,descripcion,precio,stock} = req.body;
-  const result = await pool.query(
-    "INSERT INTO e01_producto (marca,nombre,descripcion,precio,stock) values ($1, $2,$3,$4,$5) RETURNING *",
-    [marca,nombre,descripcion,precio,stock]
-  );
-  res.json(result.rows[0]);
+  try{
+    const { marca,nombre,descripcion,precio,stock} = req.body;
+    const result = await pool.query(
+      "INSERT INTO e01_producto (marca,nombre,descripcion,precio,stock) values ($1, $2,$3,$4,$5) RETURNING *",
+      [marca,nombre,descripcion,precio,stock]
+    );
+    res.status(200).json(result.rows[0]);
+  }catch(error){
+    res.status(500).json({ error: "Failed to save product" });
+  }
 });
 
 app.put("/products/:id", async (req, res) => {
-  const { id } = req.params;
-  const { marca,nombre,descripcion,precio,stock} = req.body;
-  const result = await pool.query(
-    "UPDATE e01_producto SET marca = $1, nombre = $2, descripcion = $3, precio = $4,stock = $5 WHERE nro_producto = $6 RETURNING *",
-    [marca, nombre,descripcion,precio,stock, id]
-  );
-  res.json(result.rows[0]);
+  try{
+    const { id } = req.params;
+    const { marca,nombre,descripcion,precio,stock} = req.body;
+    const result = await pool.query(
+      "UPDATE e01_producto SET marca = $1, nombre = $2, descripcion = $3, precio = $4,stock = $5 WHERE nro_producto = $6 RETURNING *",
+      [marca, nombre,descripcion,precio,stock, id]
+    );
+    if (result.rowCount === 0) {
+      res.status(404).json({ error: "Product not found" }); // 404 Not Found
+    } else {
+      res.status(200).json(result.rows[0]);
+    }
+  }catch(error){
+    res.status(500).json({ error: "Failed to modify product" });
+  }
 });
+
 app.delete("/products/:id", async (req, res) => {
-  const { id } = req.params;
-  await pool.query("DELETE FROM e01_producto WHERE nro_producto = $1", [id]);
-  res.json({ message: "Product deleted" });
+  try{
+    const { id } = req.params;
+    await pool.query("DELETE FROM e01_producto WHERE nro_producto = $1", [id]);
+    if (result.rowCount === 0) {
+      res.status(404).json({ error: "Product not found" }); // 404 Not Found
+    } else {
+      res.json({ message: "Product deleted" });
+    }
+  }catch(error){
+    res.status(500).json({ error: "Failed to delete product" });
+  }
 });
+
 
 //---------------------------------------------------
 //  UP
