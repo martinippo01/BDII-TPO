@@ -3,7 +3,7 @@
 -- TABLE: E01_CLIENTE
 --
 CREATE TABLE IF NOT EXISTS E01_CLIENTE(
-    nro_cliente    INTEGER        NOT NULL,
+    nro_cliente    SERIAL         NOT NULL,
     nombre         VARCHAR(45)    NOT NULL,
     apellido       VARCHAR(45)    NOT NULL,
     direccion      VARCHAR(45)    NOT NULL,

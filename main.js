@@ -4,6 +4,7 @@ const { Pool } = require("pg");
 const fs = require('fs');
 
 
+
 const app = express();
 const port = 3000;
 
@@ -19,6 +20,9 @@ const pool = new Pool({
   database: "postgres",
   password: "admin",
   port: 5433,
+  // Additional options
+  idleTimeoutMillis: 30000, // Close idle connections after 30 seconds
+  max: 10, // Limit the maximum number of connections
 });
 
 // Function to create a users table
@@ -50,7 +54,7 @@ app.post("/clients", async (req, res) => {
       "INSERT INTO e01_cliente (nombre,apellido,direccion,activo) values ($1,$2,$3,$4) RETURNING *",
       [nombre,apellido,direccion,activo]
     );
-    res.json(result.rows[0]);
+    res.status(200).json(result.rows[0]);
   }catch(error){
     res.status(500).json({ error: "Failed to create client" });
   }
