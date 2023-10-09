@@ -319,6 +319,61 @@ app.get("/queries/10", async (req, res) => {
 
 
 //---------------------------------------------------
+//  Views
+//---------------------------------------------------
+
+app.post("/view/1", async (req, res) => {
+  try{
+    const result = await pool.query("create view E01_FACTURA_ORDENADAS_POR_FECHA as select * from e01_factura order by fecha;");
+    res.status(200).json({result: "View created successfully"});
+  }catch(error){
+    if (error.message.includes("already exists")) {
+      res.status(400).json({ error: "View already exists" });
+    }
+    else{
+      console.error(error);
+      res.status(500).json({ error: "Failed to retrieve product" });
+    }
+  }
+});
+
+app.post("/view/2", async (req, res) => {
+  try{
+    const result = await pool.query("create view PRODUCTOS_NO_FACTURADOS as select * from e01_producto where codigo_producto not in(select p.codigo_producto from e01_producto p join e01_detalle_factura df on p.codigo_producto = df.codigo_producto);");
+    res.status(200).json({result: "View created successfully"});
+  }catch(error){
+    if (error.message.includes("already exists")) {
+      res.status(400).json({ error: "View already exists" });
+    }
+    else{
+      console.error(error);
+      res.status(500).json({ error: "Failed to retrieve product" });
+    }
+  }
+});
+
+app.get("/view/1", async (req, res) => {
+  try{
+    const result = await pool.query("select * from E01_FACTURA_ORDENADAS_POR_FECHA;");
+    res.status(200).json(result.rows[0]);
+  }catch(error){
+    console.error(error);
+    res.status(500).json({ error: "Failed to retrieve product" });
+  }
+});
+
+app.get("/view/2", async (req, res) => {
+  try{
+    const result = await pool.query("select * from PRODUCTOS_NO_FACTURADOS;");
+    res.status(200).json(result.rows[0]);
+  }catch(error){
+    console.error(error);
+    res.status(500).json({ error: "Failed to retrieve product" });
+  }
+});
+
+
+//---------------------------------------------------
 //  UP
 //---------------------------------------------------
 
