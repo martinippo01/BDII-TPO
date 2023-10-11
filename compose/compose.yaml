@@ -1,0 +1,27 @@
+services:
+  relational:
+    container_name: postgres_TP
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=postgres
+    volumes:
+      - migration:/tmp/migration
+
+  nosql:
+    container_name: mongo_TP
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=tp2
+    volumes:
+      - migration:/migration
+
+volumes:
+  migration:
