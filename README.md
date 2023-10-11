@@ -37,12 +37,3 @@ Furthermore, there are "secret" endpoints that run the queries and create/query 
 ## Deployed API
 
 The API is deployed and accessible at martinippolito.com.ar:3000. The data is already inserted, and shares the same endpoints.
-
-# NO-SQL Part
-user: admin
-password: admin
-
-
-./scr <id-container-sql> <id-container-mongo>
-
-- postgres
