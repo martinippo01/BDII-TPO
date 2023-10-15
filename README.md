@@ -30,9 +30,9 @@ The API is available at localhost:3000.
 Making a get request at / will provide the documentation of the main endpoints of the API.
 Furthermore, there are "secret" endpoints that run the queries and create/query the views.
 
-- localhost:3000/queries/<number of query> [GET method]
-- localhost:3000/view/<number of view> [POST method] -> Create the view
-- localhost:3000/view/<number of view> [GET method] -> Select * view
+- localhost:3000/queries/[number of query] [GET method]
+- localhost:3000/view/[number of view] [POST method] -> Create the view
+- localhost:3000/view/[number of view] [GET method] -> Select * view
 
 ## Deployed API
 
