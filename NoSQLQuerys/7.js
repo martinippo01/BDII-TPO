@@ -1,0 +1,1 @@
+db.factura.find({nro_cliente:{$in:db.cliente.distinct("nro_cliente",{nombre:"Pandora",apellido:"Tate"})}})
