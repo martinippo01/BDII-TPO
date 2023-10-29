@@ -1,0 +1,75 @@
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+DO
+DO
+DO
+DO
+CREATE PROCEDURE
+CALL
+COPY 100
+Current Mongosh Log ID:	6526fe1cfd3edba4372856b1
+Connecting to:		mongodb://<credentials>@127.0.0.1:27017/tp2?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=mongosh+1.10.6
+Using MongoDB:		7.0.1
+Using Mongosh:		1.10.6
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-10-11T19:39:11.347+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2023-10-11T19:39:12.362+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+   2023-10-11T19:39:12.362+00:00: vm.max_map_count is too low
+------
+
+true
+COPY 100
+Current Mongosh Log ID:	6526fe1d453dbc839b53ccd6
+Connecting to:		mongodb://<credentials>@127.0.0.1:27017/tp2?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=mongosh+1.10.6
+Using MongoDB:		7.0.1
+Using Mongosh:		1.10.6
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-10-11T19:39:11.347+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2023-10-11T19:39:12.362+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+   2023-10-11T19:39:12.362+00:00: vm.max_map_count is too low
+------
+
+true
+COPY 400
+Current Mongosh Log ID:	6526fe1fa289bad10a20cc9c
+Connecting to:		mongodb://<credentials>@127.0.0.1:27017/tp2?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=mongosh+1.10.6
+Using MongoDB:		7.0.1
+Using Mongosh:		1.10.6
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-10-11T19:39:11.347+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2023-10-11T19:39:12.362+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+   2023-10-11T19:39:12.362+00:00: vm.max_map_count is too low
+------
+
+true
+COPY 198
+Current Mongosh Log ID:	6526fe21f02212ce5d6fac2d
+Connecting to:		mongodb://<credentials>@127.0.0.1:27017/tp2?directConnection=true&serverSelectionTimeoutMS=2000&authSource=admin&appName=mongosh+1.10.6
+Using MongoDB:		7.0.1
+Using Mongosh:		1.10.6
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-10-11T19:39:11.347+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2023-10-11T19:39:12.362+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+   2023-10-11T19:39:12.362+00:00: vm.max_map_count is too low
+------
+
+true
