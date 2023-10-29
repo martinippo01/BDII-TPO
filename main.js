@@ -19,7 +19,7 @@ const pool = new Pool({
   host: "localhost",
   database: "postgres",
   password: "admin",
-  port: 5433,
+  port: 5432,
   // Additional options
   idleTimeoutMillis: 30000, // Close idle connections after 30 seconds
   max: 10, // Limit the maximum number of connections
