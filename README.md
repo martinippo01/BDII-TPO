@@ -37,3 +37,38 @@ Furthermore, there are "secret" endpoints that run the queries and create/query 
 ## Deployed API
 
 The API is deployed and accessible at martinippolito.com.ar:3000. The data is already inserted, and shares the same endpoints.
+
+---
+***
+
+# NoSQL part
+
+## Migration
+In order to migrate the data given by the course chair, the following steps must be followed.
+
+> Requirment: Linux based OS or WSL, and execute the following commnads from a bash commnad line.
+
+### Create postgreSQL and mongoDB docker containers
+From the repository's root
+```bash
+cd ./compose
+docker compose up
+```
+> Make sure there are no postgreSQL nor mongoDB database already up
+
+Now, the data is inserted in the postgreSQL, but not in the mongoDB
+
+### Migrate to mongoDB
+From the repository's root
+```bash
+cd ./sqlMigrator
+chmod u+x ./migrator.sh
+./migrator.sh postgres_TP mongo_TP
+```
+
+> It is possible to get this error: bad interpreter: No such file or directory.
+> In that case just run (install 'dos2unix' if needed) the following:
+>  ```bash
+>  dos2unix migrator.sh
+>  ```
+
