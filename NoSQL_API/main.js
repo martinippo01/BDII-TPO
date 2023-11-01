@@ -153,11 +153,12 @@ app.put("/clients/:id", async (req, res) => {
 app.delete("/clients/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query("DELETE FROM e01_cliente WHERE nro_cliente = $1", [id]);
-    if (result.rowCount === 0) {
-      res.status(404).json({ error: "User not found" }); // 404 Not Found
-    } else {
-      res.json({ message: "User deleted" });
+    const clients = await cliente.find({nro_cliente: id});
+    if(clients.length == 0){
+        res.status(404).json({error: "Client not found"})
+    }else{
+        const result = await cliente.deleteOne({nro_cliente: id})
+        res.status(200).json({ message: "Client deleted" })
     }
   } catch (error) {
     console.error("Error deleting user:", error);
