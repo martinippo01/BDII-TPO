@@ -1,0 +1,15 @@
+{
+  "name": "mongo_api_bd2",
+  "version": "1.0.0",
+  "description": "API for a mongo DB",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  }
+}
