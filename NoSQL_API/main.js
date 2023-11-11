@@ -101,7 +101,7 @@ app.post("/clients", async (req, res) => {
 // Define a route to get a list of clients
 app.get('/clients', async (req, res) => {
     try {
-      const my_clients = await cliente.find();
+      const my_clients = await cliente.find({},{_id: 0});
       res.status(200).json(my_clients);
     } catch (err) {
       console.error(err);
@@ -141,7 +141,8 @@ app.put("/clients/:id", async (req, res) => {
             activo: activo
         }}, {upsert: false})
         
-        res.status(200).json(await cliente.find({nro_cliente: id}))
+        console.log(result.modifiedCount)
+        res.status(200).json(await cliente.find({nro_cliente: id}, {_id:0}))
     }
   } catch (error) {
     console.error("Error updating user:", error);
@@ -173,7 +174,7 @@ app.delete("/clients/:id", async (req, res) => {
 
 app.get("/products", async (req, res) => {
   try{
-    const products = await producto.find()
+    const products = await producto.find({},{_id: 0})
     res.status(200).json(products)
   }catch(error){
     console.error(error);
@@ -184,7 +185,7 @@ app.get("/products", async (req, res) => {
 app.get("/products/:id", async (req, res) => {
     const { id } = req.params;
     try{
-        const products = await producto.find({codigo: id})
+        const products = await producto.find({codigo: id},{_id:0, __v:0})
         if(products.length != 0){
             res.status(200).json(products[0])
         }else{
@@ -225,7 +226,7 @@ app.post("/products", async (req, res) => {
         precio: precio,
         stock: stock
     })
-    res.status(200).json(await producto.find({codigo: nextNro.codigo}));
+    res.status(200).json(await producto.find({codigo: nextNro.codigo}, {_id:0, __v:0}));
   }catch(error){
     console.error(error);
     res.status(500).json({ error: "Failed to save product" });
@@ -250,7 +251,7 @@ app.put("/products/:id", async (req, res) => {
                 stock: stock
             }
         }, {upsert: false});
-        res.status(200).json(await producto.find({codigo: id}))
+        res.status(200).json(await producto.find({codigo: id}, {_id:0, __v:0}))
     }else{
         res.status(404).json({ error: "Product not found" }); // 404 Not Found
     }
