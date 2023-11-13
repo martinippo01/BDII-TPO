@@ -1,6 +1,6 @@
 # TPO - BDII
 
-The following repository is part of the [mandatory assignment](docs/consigna.pdf) for the curriculum of Databases II at [ITBA](https://www.itba.edu.ar/)
+The following repository is part of the [mandatory assignment](docs/consigna.pdf) for the curriculum of Databases II at [ITBA](https://www.itba.edu.ar/). Click [here](docs/report.pdf) to view the report.
 
 - [Lautaro Hernando](https://github.com/laucha12)
 - [Marco Scilipoti](https://github.com/Marco444)
