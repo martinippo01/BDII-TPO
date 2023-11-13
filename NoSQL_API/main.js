@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 3001;
 
+// Serve static files from the "public" directory
+app.use(express.static("public"));
+
 // Connect to your MongoDB database
 mongoose.connect('mongodb://admin:admin@localhost:27017/TPO?authSource=admin', {});
 
