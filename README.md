@@ -1,3 +1,16 @@
+# TPO - BDII
+
+The following repository is part of the [mandatory assignment](docs/consigna.pdf) for the curriculum of Databases II at [ITBA](https://www.itba.edu.ar/)
+
+- [Lautaro Hernando](https://github.com/laucha12)
+- [Marco Scilipoti](https://github.com/Marco444)
+- [Martin Ippolito](https://github.com/martinippo01)
+
+## Previous requirements
+- Linux based OS or WSL, and execute the commnads from a bash commnad line.
+- Docker ([Get Docker](https://docs.docker.com/get-docker/))
+- Docker Compose ([Get Docker Compose for Linux users](https://docs.docker.com/compose/install/))
+
 # SQL part
 
 ## Command to create postgres data base with docker
@@ -43,10 +56,34 @@ The API is deployed and accessible at martinippolito.com.ar:3000. The data is al
 
 # NoSQL part
 
+## Run API
+In order to start the API, located in the directory NoSQL_API/, first run 
+```bash 
+cd NoSQL_API
+npm install
+```
+Then start the API
+```bash
+node .
+```
+
+The API is available at localhost:3001.
+Making a get request at / will provide the documentation of the main endpoints of the API.
+In this case, there are **no** endpoints that run the queries and create/query the views for the NoSQL part.
+
+
+## Deployed API
+
+The API is deployed and accessible at martinippolito.com.ar:3001. The data is already inserted, and shares the same endpoints.
+
+
 ## Migration
 In order to migrate the data given by the course chair, the following steps must be followed.
 
-> Requirment: Linux based OS or WSL, and execute the following commnads from a bash commnad line.
+__Note__: We will create a new postgres container, so if you have created one before in the 'SQL part' stop it with the following command:
+```bash
+docker stop TPO_postgres
+```
 
 ### Create postgreSQL and mongoDB docker containers
 From the repository's root
