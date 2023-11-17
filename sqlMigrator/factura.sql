@@ -7,7 +7,7 @@ COPY (
       -- Calculate total_sin_iva based on the sum of detalle_factura amounts
       (SELECT COALESCE(SUM(cantidad * p.precio), 0) FROM e01_detalle_factura d JOIN e01_producto p ON d.codigo_producto = p.codigo_producto WHERE d.nro_factura = e01_factura.nro_factura) AS total_sin_iva,
       -- Calculate total_con_iva based on total_sin_iva
-      (SELECT COALESCE(total_sin_iva + total_sin_iva * 0.21, 0)) AS total_con_iva,
+      (SELECT COALESCE(total_sin_iva * 1.21, 0)) AS total_con_iva,
       iva,
       nro_cliente,
       (

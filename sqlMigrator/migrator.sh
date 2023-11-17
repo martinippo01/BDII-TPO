@@ -1,8 +1,8 @@
 docker exec $1 psql -U admin -d postgres -c "CREATE DATABASE TPO;"
 docker cp ../schema.sql $1:/tmp/schema.sql
 docker cp ../inserts.sql $1:/tmp/inserts.sql
-docker exec -u postgres $1 psql -U admin -d postgres --file /tmp/schema.sql
 docker exec -u postgres $1 psql -U admin -d postgres --file /tmp/inserts.sql
+docker exec -u postgres $1 psql -U admin -d postgres --file /tmp/schema.sql
 
 
 docker cp ./productos.sql $1:/tmp/productos.sql
